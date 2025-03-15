@@ -39,7 +39,7 @@ namespace FodyLogging.Console
 
             service.LogReceivedDimensionVariant(new CpiSkuDimensionVariant
             {
-                Sku = "123",
+                Sku = "99999",
                 Dimension = "456",
                 Variant = "789"
             });

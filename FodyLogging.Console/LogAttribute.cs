@@ -10,14 +10,10 @@ namespace FodyLogging.Console
     public class LogAttribute : Attribute, IMethodDecorator
     {
         private ILogger? logger;
-        
         private object[] parameters;
-        private readonly bool shouldLog = true;
-        private readonly object lockObj = new object();
 
         private string className = string.Empty;
         private string methodName = string.Empty;
-
 
         public bool IgnorePrivate { get; set; }
 
@@ -29,102 +25,54 @@ namespace FodyLogging.Console
             methodName = method.Name;
             parameters = args;
 
-            try
-            {
-                logger = LoggerFactoryProvider.CreateLogger(method.DeclaringType ?? typeof(object));
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException("Logger is null.", e);
-            }
+            logger = LoggerFactoryProvider.CreateLogger(method.DeclaringType ?? typeof(object));
         }
 
         public void OnEntry()
         {
-            if (!shouldLog)
+            if (!ShouldLog(LogLevel.Information))
                 return;
 
-            try
-            {
-                var serializedParams = SerializeParameters(parameters);
-
-                lock (lockObj)
-                {
-                    if (serializedParams != null)
-                    {
-                        logger?.LogInformation("Entering {Class}.{Method} with parameters: {Parameters}", className, methodName, serializedParams);
-                    }
-                    else
-                    {
-                        logger?.LogInformation("Entering {Class}.{Method} with no parameters", className, methodName);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                lock (lockObj)
-                {
-                    logger?.LogError(ex, "Error logging entry for {Class}.{Method}", className, methodName);
-                }
-            }
+            var serializedParams = SerializeParameters(parameters);
+            logger?.LogInformation("Entering {Class}.{Method} with parameters: {Parameters}", className, methodName, serializedParams);
         }
 
         public void OnExit()
         {
-            if (!shouldLog)
+            if (!ShouldLog(LogLevel.Information))
                 return;
 
-            try
-            {
-                lock (lockObj)
-                {
-                    logger?.LogInformation("Exiting {Class}.{Method}", className, methodName);
-                }
-            }
-            catch (Exception ex)
-            {
-                lock (lockObj)
-                {
-                    logger?.LogError(ex, "Error logging exit for {Class}.{Method}", className, methodName);
-                }
-            }
+            logger?.LogInformation("Exiting {Class}.{Method}", className, methodName);
         }
 
         public void OnException(Exception exception)
         {
-            if (!shouldLog)
+            if (!ShouldLog(LogLevel.Error))
                 return;
 
-            try
-            {
-                lock (lockObj)
-                {
-                    logger?.LogError(exception, "Exception in {Class}.{Method}", className, methodName);
-                }
-            }
-            catch (Exception ex)
-            {
-                lock (lockObj)
-                {
-                    logger?.LogError(ex, "Error logging exception for {Class}.{Method}", className, methodName);
-                }
-            }
+            logger?.LogError(exception, "Exception in {Class}.{Method}", className, methodName);
         }
+
+        private bool ShouldLog(LogLevel level)
+        {
+            return logger?.IsEnabled(level) ?? false;
+        }
+
+        private static readonly JsonSerializerOptions JsonOptions = new()
+        {
+            WriteIndented = false,
+            IgnoreNullValues = true,
+            ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+        };
 
         private static string SerializeParameters(object[] parameters)
         {
             if (parameters == null || parameters.Length == 0)
-                return null;
+                return string.Empty;
 
             try
             {
-                var paramStrings = new string[parameters.Length];
-                for (var i = 0; i < parameters.Length; i++)
-                {
-                    paramStrings[i] = JsonSerializer.Serialize(parameters[i]);
-                }
-
-                return string.Join(", ", paramStrings);
+                return JsonSerializer.Serialize(parameters, JsonOptions);
             }
             catch (Exception)
             {
