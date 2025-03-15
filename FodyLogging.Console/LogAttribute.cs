@@ -7,52 +7,38 @@ using System.Text.Json;
 namespace FodyLogging.Console
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class LogMethodAttribute : Attribute, IMethodDecorator
+    public class LogAttribute : Attribute, IMethodDecorator
     {
-        private ILogger logger;
-        private string methodName;
+        private ILogger? logger;
+        
         private object[] parameters;
-        private bool shouldLog = true;
+        private readonly bool shouldLog = true;
         private readonly object lockObj = new object();
+
+        private string className = string.Empty;
+        private string methodName = string.Empty;
+
 
         public bool IgnorePrivate { get; set; }
 
-        public LogMethodAttribute(bool ignorePrivate = true)
+        public LogAttribute(bool ignorePrivate = true)
         {
             IgnorePrivate = ignorePrivate;
         }
 
         public void Init(object instance, MethodBase method, object[] args)
         {
-            if (method.IsConstructor)
-            {
-                return;
-            }
-
-            if (IgnorePrivate && method.IsPrivate)
-            {
-                shouldLog = false;
-                return;
-            }
-
-            shouldLog = true;
+            className = method.DeclaringType?.Name ?? "UnknownClass";
+            methodName = method.Name;
+            parameters = args;
 
             try
             {
-                logger = (ILogger)instance.GetType().GetField("logger",
-                    BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(instance);
-
-                methodName = method.Name;
-                parameters = args;
-
-                if (logger == null)
-                {
-                    throw new InvalidOperationException("Logger is null.");
-                }
+                logger = LoggerFactoryProvider.CreateLogger(method.DeclaringType ?? typeof(object));
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                logger?.LogError(ex, "Error inside Init");
+                throw new InvalidOperationException("Logger is null.", e);
             }
         }
 
@@ -69,11 +55,11 @@ namespace FodyLogging.Console
                 {
                     if (serializedParams != null)
                     {
-                        logger?.LogInformation("Entering {Method} with parameters: {Parameters}", methodName, serializedParams);
+                        logger?.LogInformation("Entering {Class}.{Method} with parameters: {Parameters}", className, methodName, serializedParams);
                     }
                     else
                     {
-                        logger?.LogInformation("Entering {Method} with no parameters", methodName);
+                        logger?.LogInformation("Entering {Class}.{Method} with no parameters", className, methodName);
                     }
                 }
             }
@@ -81,7 +67,7 @@ namespace FodyLogging.Console
             {
                 lock (lockObj)
                 {
-                    logger?.LogError(ex, "Error logging entry for {Method}", methodName);
+                    logger?.LogError(ex, "Error logging entry for {Class}.{Method}", className, methodName);
                 }
             }
         }
@@ -95,14 +81,14 @@ namespace FodyLogging.Console
             {
                 lock (lockObj)
                 {
-                    logger?.LogInformation("Exiting {Method}", methodName);
+                    logger?.LogInformation("Exiting {Class}.{Method}", className, methodName);
                 }
             }
             catch (Exception ex)
             {
                 lock (lockObj)
                 {
-                    logger?.LogError(ex, "Error logging exit for {Method}", methodName);
+                    logger?.LogError(ex, "Error logging exit for {Class}.{Method}", className, methodName);
                 }
             }
         }
@@ -116,14 +102,14 @@ namespace FodyLogging.Console
             {
                 lock (lockObj)
                 {
-                    logger?.LogError(exception, "Exception in {Method}", methodName);
+                    logger?.LogError(exception, "Exception in {Class}.{Method}", className, methodName);
                 }
             }
             catch (Exception ex)
             {
                 lock (lockObj)
                 {
-                    logger?.LogError(ex, "Error logging exception for {Method}", methodName);
+                    logger?.LogError(ex, "Error logging exception for {Class}.{Method}", className, methodName);
                 }
             }
         }

@@ -1,12 +1,18 @@
-﻿public class CpiService
-{
-    public void LogReceivedDimensionVariant(CpiSkuDimensionVariant receivedDimensionVariant)
-    {
-        TestMethod();
-    }
+﻿using PostSharp.Patterns.Diagnostics;
 
-    private void TestMethod()
+namespace PostSharp.Console
+{
+    [Log]
+    public class CpiService
     {
-        // Method implementation
+        public void LogReceivedDimensionVariant(CpiSkuDimensionVariant receivedDimensionVariant)
+        {
+            TestMethod();
+        }
+
+        private void TestMethod()
+        {
+            // Method implementation
+        }
     }
 }

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FodyLogging.Console")]
+[assembly: AssemblyTitle("PostSharp.Console")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FodyLogging.Console")]
+[assembly: AssemblyProduct("PostSharp.Console")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,9 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("22E7C7C1-D201-462A-AAC2-53D9C12402EF")]
-
-//[assembly: log4net.Config.XmlConfigurator(ConfigFile = "CpiServiceLog4net.config", Watch = true)]
+[assembly: Guid("FE900BC0-07F2-40FB-8A71-1253DC10B2A1")]
 
 // Version information for an assembly consists of the following four values:
 //

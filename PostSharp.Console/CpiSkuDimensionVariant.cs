@@ -1,6 +1,9 @@
-﻿public class CpiSkuDimensionVariant
+﻿namespace PostSharp.Console
 {
-    public string Sku { get; set; }
-    public string Dimension { get; set; }
-    public string Variant { get; set; }
+    public class CpiSkuDimensionVariant
+    {
+        public string Sku { get; set; }
+        public string Dimension { get; set; }
+        public string Variant { get; set; }
+    }
 }
