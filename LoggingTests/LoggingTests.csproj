@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CpiServiceWithLoggerTests.cs" />
     <Compile Include="LoggerFixture.cs" />
     <Compile Include="LoggingConsoleTests.cs" />
     <Compile Include="MockLoggerProvider.cs" />

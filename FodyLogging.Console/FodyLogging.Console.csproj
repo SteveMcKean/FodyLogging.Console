@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpiService.cs" />
+    <Compile Include="CpiServiceWithLogger.cs" />
     <Compile Include="CpiSkuDimensionVariant.cs" />
     <Compile Include="LogAspect.cs" />
     <Compile Include="LogAttribute.cs" />
