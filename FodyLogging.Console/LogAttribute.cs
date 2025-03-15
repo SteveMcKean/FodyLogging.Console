@@ -21,10 +21,7 @@ namespace FodyLogging.Console
 
         public bool IgnorePrivate { get; set; }
 
-        public LogAttribute(bool ignorePrivate = true)
-        {
-            IgnorePrivate = ignorePrivate;
-        }
+        public LogAttribute(bool ignorePrivate = true) => IgnorePrivate = ignorePrivate;
 
         public void Init(object instance, MethodBase method, object[] args)
         {

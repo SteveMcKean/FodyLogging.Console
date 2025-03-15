@@ -32,7 +32,10 @@ namespace LoggingTests
 
         public void Dispose()
         {
-            // Clean up any resources if necessary
+            if (ServiceProvider is IDisposable disposableServiceProvider) 
+                disposableServiceProvider.Dispose();
+
+            LoggerFactoryProvider.ServiceProvider = null;
         }
     }
 }
