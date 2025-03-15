@@ -1,0 +1,10 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.idea/.idea.FodyLogging.Console/.idea
+/.vs/FodyLogging.Console/copilot-chat/3e26aad1/sessions
+/.vs/FodyLogging.Console/CopilotIndices
+/.vs/FodyLogging.Console/FileContentIndex
+/.vs/FodyLogging.Console/v17
