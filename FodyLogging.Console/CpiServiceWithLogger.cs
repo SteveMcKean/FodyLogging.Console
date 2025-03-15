@@ -1,5 +1,6 @@
-﻿using FodyLogging.Console;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+
+namespace FodyLogging.Console;
 
 [Log(ignorePrivate: false)]
 public class CpiServiceWithLogger
