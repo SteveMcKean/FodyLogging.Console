@@ -5,9 +5,9 @@ namespace FodyLogging.Console;
 [Log(ignorePrivate: false)]
 public class CpiServiceWithLogger
 {
-    private ILogger<CpiService> logger;
+    private ILogger<CpiServiceWithLogger> logger;
      
-    public CpiServiceWithLogger(ILogger<CpiService> logger)
+    public CpiServiceWithLogger(ILogger<CpiServiceWithLogger> logger)
     {
         this.logger = logger;
         

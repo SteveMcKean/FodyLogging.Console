@@ -1,23 +1,30 @@
 ﻿using Microsoft.Extensions.Logging;
+using NSubstitute;
+using System;
+using System.Collections.Concurrent;
+using System.Linq;
 
 namespace LoggingTests
 {
     public class MockLoggerProvider : ILoggerProvider
     {
-        private readonly ILogger logger;
+        private readonly ConcurrentDictionary<string, ILogger> mockLoggers;
 
-        public MockLoggerProvider(ILogger logger)
+        public MockLoggerProvider(ConcurrentDictionary<string, ILogger> mockLoggers)
         {
-            this.logger = logger;
+            this.mockLoggers = mockLoggers;
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            return logger;
+            // Always return a substitute logger for the category
+            return mockLoggers.GetOrAdd(categoryName, _ => Substitute.For<ILogger>());
         }
 
         public void Dispose()
         {
+            mockLoggers.Clear(); // Clear dictionary to release mock references
         }
     }
+
 }

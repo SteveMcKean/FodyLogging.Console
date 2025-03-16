@@ -19,7 +19,8 @@ namespace LoggingTests
         public void LogReceivedDimensionVariant_ShouldLogCorrectly()
         {
             // Arrange
-            var service = new CpiServiceWithLogger(fixture.MockLogger);
+            var mockLogger = fixture.GetMockLogger<CpiServiceWithLogger>();
+            var service = new CpiServiceWithLogger(mockLogger);
 
             var dimensionVariant = new CpiSkuDimensionVariant
                 {
@@ -32,14 +33,14 @@ namespace LoggingTests
             service.LogReceivedDimensionVariant(dimensionVariant);
 
             // Assert
-            fixture.MockLogger.Received().Log(
+            mockLogger.Received().Log(
                 LogLevel.Information,
                 Arg.Any<EventId>(),
                 Arg.Is<object>((v) => v.ToString().Contains("Entering CpiService.LogReceivedDimensionVariant")),
                 Arg.Any<Exception>(),
                 Arg.Any<Func<object, Exception, string>>());
             
-            fixture.MockLogger.Received().Log(
+            mockLogger.Received().Log(
                 LogLevel.Information,
                 Arg.Any<EventId>(),
                 Arg.Is<object>((v) => v.ToString().Contains("Entering CpiService.TestMethod")),
