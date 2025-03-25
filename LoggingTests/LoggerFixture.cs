@@ -18,14 +18,17 @@ public class LoggerFixture : IDisposable
 
         // Create a substitute ILoggerFactory that uses the mock logger provider.
         var mockLoggerFactory = Substitute.For<ILoggerFactory>();
+        
         mockLoggerFactory.CreateLogger(Arg.Any<string>())
             .Returns(callInfo =>
             {
                 var categoryName = callInfo.Arg<string>();
                 var logger = mockLoggerProvider.CreateLogger(categoryName);
+                
                 // Configure the logger to return true for Information and Error log levels.
                 logger.IsEnabled(LogLevel.Information).Returns(true);
                 logger.IsEnabled(LogLevel.Error).Returns(true);
+                
                 return logger;
             });
 
@@ -41,19 +44,23 @@ public class LoggerFixture : IDisposable
     public ILogger<T> GetMockLogger<T>() where T : class
     {
         var categoryName = typeof(T).FullName;
+        
+        
         return (ILogger<T>)mockLoggers.GetOrAdd(categoryName, _ =>
-        {
-            var logger = Substitute.For<ILogger<T>>();
-            logger.IsEnabled(LogLevel.Information).Returns(true);
-            logger.IsEnabled(LogLevel.Error).Returns(true);
-            return logger;
-        });
+            {
+                var logger = Substitute.For<ILogger<T>>();
+                logger.IsEnabled(LogLevel.Information).Returns(true);
+                logger.IsEnabled(LogLevel.Error).Returns(true);
+                
+                return logger;
+            });
     }
 
     public void Dispose()
     {
         LoggerFactoryProvider.ServiceProvider = null;
         mockLoggers.Clear();
+        
         if (serviceProvider is IDisposable disposableServiceProvider)
             disposableServiceProvider.Dispose();
     }
