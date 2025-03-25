@@ -289,6 +289,7 @@
     <Compile Include="CpiServiceLoggerProvider.cs" />
     <Compile Include="CpiServiceWithLogger.cs" />
     <Compile Include="CpiSkuDimensionVariant.cs" />
+    <Compile Include="DevelopmentInstanceSettings.cs" />
     <Compile Include="LogAspect.cs" />
     <Compile Include="LogAttribute.cs" />
     <Compile Include="LoggerProviderFactory.cs" />

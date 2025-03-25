@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration; // Required for ConfigurationBuilder e
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using SerilogTimings.Extensions;
@@ -38,24 +39,16 @@ namespace FodyLogging.Console
                     
                 .CreateLogger();
             
-            // Log.Logger = new LoggerConfiguration()
-            //     .MinimumLevel.Debug()
-            //     .WriteTo.Seq("http://localhost:5431") 
-            //     .Enrich.FromLogContext()
-            //     .WriteTo.Console(theme: AnsiConsoleTheme.Code)
-            //     .Enrich.WithThreadName()// Ensure your Seq server is running at this URL.
-            //     .Enrich.WithMachineName()
-            //     .CreateLogger();
-
-            
             var serviceProvider = new ServiceCollection()
+                .AddOptions()
+                .Configure<DevelopmentInstanceSettings>(configuration.GetSection("DevelopmentInstanceSettings"))
                 .AddLogging(builder =>
                     {
                         builder.ClearProviders(); // Optionally clear other providers if you only want log4net.
                         builder.SetMinimumLevel(LogLevel.Debug); // Set your desired minimum log level.
                         builder.AddLog4Net("CpiServiceLog4Net.config"); // This loads your log4net config.
                         // You can still add console logging if desired:
-                        builder.AddConsole();
+                        ///builder.AddConsole();
                         builder.AddSerilog(dispose:true);
                         
                     })
@@ -64,6 +57,12 @@ namespace FodyLogging.Console
                 .BuildServiceProvider();
             
             LoggerFactoryProvider.ServiceProvider = serviceProvider;
+            
+            var appSettingsOptions = serviceProvider.GetRequiredService<IOptions<DevelopmentInstanceSettings>>();
+            var appSettings = appSettingsOptions.Value;
+            
+            Log.Logger.Information("Loaded setting: {AppSettingsUseVirtualKeyboard} - AnotherSetting: {AppSettingsMeasuringDevice}", appSettings.UseVirtualKeyboard, appSettings.MeasuringDevice);
+
 
             var cpiLogger = serviceProvider.GetRequiredService<ILogger<CpiService>>();
             var service = new CpiService();
