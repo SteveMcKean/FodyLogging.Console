@@ -144,11 +144,17 @@
     <Reference Include="Serilog, Version=4.2.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.4.2.0\lib\net471\Serilog.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog.Extensions.Logging, Version=9.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Extensions.Logging.9.0.1\lib\net462\Serilog.Extensions.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog.Formatting.Compact, Version=3.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Formatting.Compact.3.0.0\lib\net471\Serilog.Formatting.Compact.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.ApplicationInsights, Version=4.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.ApplicationInsights.4.0.1-dev-00046\lib\net462\Serilog.Sinks.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Async, Version=2.1.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Async.2.1.0\lib\net471\Serilog.Sinks.Async.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.OpenTelemetry, Version=4.2.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.OpenTelemetry.4.2.0-dev-02302\lib\net471\Serilog.Sinks.OpenTelemetry.dll</HintPath>
@@ -221,8 +227,10 @@
     <Compile Include="DummyClass.cs" />
     <Compile Include="LogAttributeUsingFixtureTests.cs" />
     <Compile Include="LoggerFixture.cs" />
+    <Compile Include="LoggerFixtureTests.cs" />
     <Compile Include="LoggingConsoleTests.cs" />
     <Compile Include="MockLoggerProvider.cs" />
+    <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

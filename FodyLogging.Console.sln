@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FodyLogging.Console", "Fody
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingTests", "LoggingTests\LoggingTests.csproj", "{7D1B3CD6-3852-44E0-98E5-F9B9F6A2893E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicConsoleApp", "BasicConsoleApp\BasicConsoleApp.csproj", "{F535211D-78FE-4EE4-86B5-6EDB5FC10905}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7D1B3CD6-3852-44E0-98E5-F9B9F6A2893E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D1B3CD6-3852-44E0-98E5-F9B9F6A2893E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D1B3CD6-3852-44E0-98E5-F9B9F6A2893E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F535211D-78FE-4EE4-86B5-6EDB5FC10905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F535211D-78FE-4EE4-86B5-6EDB5FC10905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F535211D-78FE-4EE4-86B5-6EDB5FC10905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F535211D-78FE-4EE4-86B5-6EDB5FC10905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,3 +8,9 @@ riderModule.iml
 /.vs/FodyLogging.Console/CopilotIndices
 /.vs/FodyLogging.Console/FileContentIndex
 /.vs/FodyLogging.Console/v17
+
+.fake
+/.github
+/.history/FodyLogging.Console
+/.vs
+/.vscode
