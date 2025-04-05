@@ -1,6 +1,17 @@
-﻿namespace FodyLogging.Console.Services;
+﻿using System.Threading.Tasks;
+using Prism.Dialogs;
 
-public class DialogService
+namespace FodyLogging.Console.Services;
+
+public static class DialogService
 {
-    
+    public static async Task ShowDialog<THost, TDialogViewModel>(THost host, TDialogViewModel viewModel)
+        where TDialogViewModel : DialogViewModel
+        where THost : IDialogProvider
+    {
+        host.Dialog = viewModel;
+        viewModel.Show();
+
+        await viewModel.WaitAsync();
+    }
 }

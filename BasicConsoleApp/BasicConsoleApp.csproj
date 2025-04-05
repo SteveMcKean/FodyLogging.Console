@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <!-- Target .NET Framework 4.7.2 -->
+        <TargetFramework>net472</TargetFramework>
+        <!-- Set the language version if needed -->
+        <LangVersion>9.0</LangVersion>
+        <!-- Define output type if it's an application -->
+        <OutputType>Exe</OutputType>
+        <!-- You can also specify assembly name, root namespace, etc. -->
+        <AssemblyName>BasicConsoleApp</AssemblyName>
+    </PropertyGroup>
+
+   
+    <ItemGroup>
+      <Folder Include="Properties\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.DependencyInjection">
+        <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+        <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Hosting">
+        <HintPath>..\packages\Microsoft.Extensions.Hosting.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.Hosting.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Hosting.Abstractions">
+        <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Logging">
+        <HintPath>..\packages\Microsoft.Extensions.Logging.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+        <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Logging.Configuration">
+        <HintPath>..\packages\Microsoft.Extensions.Logging.Configuration.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Logging.Console">
+        <HintPath>..\packages\Microsoft.Extensions.Logging.Console.10.0.0-preview.2.25163.2\lib\net462\Microsoft.Extensions.Logging.Console.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    
+</Project>
